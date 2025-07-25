@@ -165,10 +165,6 @@ print(f"R² Score: {r2}")
 ### 📌 What is it?
 Ridge Regression is a type of regularized linear regression that adds a **penalty (L2 regularization)** to the loss function to reduce model complexity and prevent overfitting.
 
-The loss function becomes:
-\[
-\text{Loss} = \text{RSS} + \alpha \sum_{j=1}^{n} \beta_j^2
-\]
 Where:
 - RSS = Residual Sum of Squares
 - \(\alpha\) = regularization strength
@@ -231,10 +227,6 @@ print(f"R² Score: {r2}")
 ### 📌 What is it?
 Lasso Regression (Least Absolute Shrinkage and Selection Operator) is a regularized regression technique that adds an **L1 penalty** to the loss function. It not only prevents overfitting but also performs **feature selection** by reducing some coefficients to exactly zero.
 
-The loss function becomes:
-\[
-\text{Loss} = \text{RSS} + \alpha \sum_{j=1}^{n} |\beta_j|
-\]
 Where:
 - RSS = Residual Sum of Squares
 - \(\alpha\) = regularization strength
@@ -297,10 +289,6 @@ print(f"R² Score: {r2}")
 ### 📌 What is it?
 ElasticNet Regression combines **L1 (Lasso)** and **L2 (Ridge)** regularization. It aims to get the **feature selection** benefits of Lasso and the **shrinkage** benefits of Ridge.
 
-The loss function becomes:
-\[
-\text{Loss} = \text{RSS} + \alpha \left( \lambda \sum |\beta_j| + (1 - \lambda) \sum \beta_j^2 \right)
-\]
 Where:
 - RSS = Residual Sum of Squares
 - \(\alpha\) = overall regularization strength
@@ -365,10 +353,6 @@ print(f"R² Score: {r2}")
 ### 📌 What is it?
 Logistic Regression is a **classification** algorithm used to predict **binary** or **multi-class** outcomes. It models the probability that a given input point belongs to a particular category using the **logistic (sigmoid)** function.
 
-The logistic function is:
-\[
-P(y=1|x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + ... + \beta_n x_n)}}
-\]
 
 It outputs values between **0 and 1**, which can be interpreted as **probabilities**.
 
