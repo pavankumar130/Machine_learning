@@ -4,7 +4,6 @@ This repository contains explanations and Python implementations of several regr
 
 ## 📚 Table of Contents
 
-- [📏 Performance Metrics (for Regression)](#-performance-metrics-for-regression)
 - [📊 1. Linear Regression](#-1-linear-regression)
 - [📊 2. Multiple Linear Regression](#-2-multiple-linear-regression)
 - [📈 3. Polynomial Regression](#-3-polynomial-regression)
@@ -15,16 +14,6 @@ This repository contains explanations and Python implementations of several regr
 
 ---
 
----
-
-## 📏 Performance Metrics (for Regression)
-
-- **MAE (Mean Absolute Error)**: Average absolute difference between predicted and actual values.
-- **MSE (Mean Squared Error)**: Average squared difference between predicted and actual values.
-- **RMSE (Root Mean Squared Error)**: Square root of MSE; penalizes large errors.
-- **R² Score (Coefficient of Determination)**: Indicates how well data fits the model (1 is perfect, 0 means no fit).
-
----
 
 ## 📊 1. Linear Regression
 
