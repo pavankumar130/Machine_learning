@@ -1,0 +1,59 @@
+## 🧠 Regularization in Linear Regression
+
+In real-world machine learning problems, especially those involving high-dimensional data, standard linear regression can suffer from issues like **overfitting**, **multicollinearity**, and **unstable coefficients**. To solve these problems, we use **regularization techniques** such as **Ridge**, **Lasso**, and **ElasticNet Regression**.
+
+These methods help by **adding a penalty term to the loss function**, which discourages the model from fitting too closely to the training data and improves generalization on unseen data.
+
+---
+
+### 🔷 Ridge Regression (L2 Regularization)
+
+- **Why we use it**:
+  - Reduces model complexity and helps prevent overfitting.
+  - Shrinks coefficients but does **not** eliminate any features.
+- **When to use**:
+  - When all features are likely to be useful.
+  - When multicollinearity is present.
+- **Cost Function**:
+
+J(θ) = MSE + λ * Σ (θ_j)^2
+
+---
+
+### 🔶 Lasso Regression (L1 Regularization)
+
+- **Why we use it**:
+- Performs **feature selection** by setting some coefficients to **exactly zero**.
+- Helps build simpler and more interpretable models.
+- **When to use**:
+- When only a few features are important.
+- When you want to ignore irrelevant variables.
+- **Cost Function**:
+
+J(θ) = MSE + λ * Σ |θ_j|
+
+---
+
+### ⚖️ ElasticNet Regression (L1 + L2 Regularization)
+
+- **Why we use it**:
+- Combines the strengths of both Ridge and Lasso.
+- Performs feature selection **and** handles multicollinearity.
+- **When to use**:
+- When there are **many correlated features**.
+- When a mix of **strong and weak predictors** is expected.
+- **Cost Function**:
+
+J(θ) = MSE + λ1 * Σ |θ_j| + λ2 * Σ (θ_j)^2
+
+---
+
+### 📊 Summary Comparison Table
+
+| Method       | Penalty Type | Feature Selection | Multicollinearity Handling | Best Used When                           |
+|--------------|--------------|-------------------|-----------------------------|------------------------------------------|
+| Ridge        | L2           | ❌ No              | ✅ Yes                       | All features matter                      |
+| Lasso        | L1           | ✅ Yes             | ❌ No                        | Few features are important               |
+| ElasticNet   | L1 + L2      | ✅ Yes             | ✅ Yes                       | Features are correlated or mixed quality |
+
+---
