@@ -10,9 +10,9 @@ This repository contains explanations and Python implementations of several regr
 - [📉 4. Ridge Regression](#-4-ridge-regression)
 - [📉 5. Lasso Regression](#-5-lasso-regression)
 - [📉 6. ElasticNet Regression](#-6-elasticnet-regression)
-- [📈 7. Logistic Regression](#-logistic-regression)
-- [🤖 8. Support Vector Classifier (SVC)](#-support-vector-classifier-svc)
-- [🤖 9. Support Vector Regression (SVR)](#-support-vector-regression-svr)
+- [📈 7. Logistic Regression](#-7-logistic-regression)
+- [🤖 8. Support Vector Classifier (SVC)](#-8-support-vector-classifier-svc)
+- [🤖 9. Support Vector Regression (SVR)](#-9-support-vector-regression-svr)
 - [🧠 SVM Kernels](#-svm-kernels)
 - [📏 Performance Metrics](#-performance-metrics)
 
