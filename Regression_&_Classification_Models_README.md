@@ -14,7 +14,6 @@ This repository contains explanations and Python implementations of several regr
 - [🤖 8. Support Vector Classifier (SVC)](#-8-support-vector-classifier-svc)
 - [🤖 9. Support Vector Regression (SVR)](#-9-support-vector-regression-svr)
 - [🧠 SVM Kernels](#-svm-kernels)
-- [📏 Performance Metrics](#-performance-metrics)
 
 ---
 
@@ -503,9 +502,7 @@ for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
     print(f"Kernel: {kernel}, Accuracy: {accuracy_score(y_test, y_pred):.2f}")
 ```
 
----
-
-## 📏 Performance Metrics
+### 📏 Performance Metrics
 
 | Task Type     | Metrics                                  |
 |---------------|------------------------------------------|
@@ -519,5 +516,3 @@ for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
 - Tune `C`, `gamma`, and `kernel` in `SVC/SVR` for best performance.
 
 ---
-
-(Original content continues below...)
