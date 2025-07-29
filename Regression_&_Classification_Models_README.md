@@ -10,7 +10,11 @@ This repository contains explanations and Python implementations of several regr
 - [📉 4. Ridge Regression](#-4-ridge-regression)
 - [📉 5. Lasso Regression](#-5-lasso-regression)
 - [📉 6. ElasticNet Regression](#-6-elasticnet-regression)
-- [📈 Logistic Regression](#-logistic-regression)
+- [📈 7. Logistic Regression](#-logistic-regression)
+- [🤖 8. Support Vector Classifier (SVC)](#-support-vector-classifier-svc)
+- [🤖 9. Support Vector Regression (SVR)](#-support-vector-regression-svr)
+- [🧠 SVM Kernels](#-svm-kernels)
+- [📏 Performance Metrics](#-performance-metrics)
 
 ---
 
@@ -348,7 +352,7 @@ print(f"RMSE: {rmse}")
 print(f"R² Score: {r2}")
 ```
 
-## 📈 Logistic Regression
+## 📈 7. Logistic Regression
 
 ### 📌 What is it?
 Logistic Regression is a **classification** algorithm used to predict **binary** or **multi-class** outcomes. It models the probability that a given input point belongs to a particular category using the **logistic (sigmoid)** function.
@@ -416,3 +420,104 @@ print(f"F1 Score: {f1}")
 print(f"ROC AUC Score: {auc}")
 print(f"Confusion Matrix:\n{cm}")
 ```
+---
+
+## 🤖 8. Support Vector Classifier (SVC)
+
+### 📌 What is it?
+Support Vector Classifier (SVC) is a supervised classification algorithm that finds the optimal hyperplane to separate classes in feature space. It maximizes the margin between classes for better generalization.
+
+### ✅ Why do we use it?
+- Excellent at handling high-dimensional data.
+- Effective when the number of features > number of samples.
+- Works well with different kernel functions for non-linear classification.
+
+### 🐍 Python Code Example
+```python
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report
+
+X, y = make_classification(n_samples=1000, n_features=2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+model = SVC(kernel='rbf')
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))
+```
+
+---
+
+## 🤖 9. Support Vector Regression (SVR)
+
+### 📌 What is it?
+Support Vector Regression is the regression counterpart of SVC. It uses a margin of tolerance (epsilon) to fit data while maintaining model simplicity.
+
+### ✅ Why do we use it?
+- Robust to outliers.
+- Captures non-linear trends with kernel tricks.
+
+### 🐍 Python Code Example
+```python
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_diabetes
+from sklearn.metrics import mean_absolute_error, r2_score
+
+X, y = load_diabetes(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+model = SVR(kernel='rbf')
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print("R²:", r2_score(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+```
+
+---
+
+## 🧠 SVM Kernels
+
+### 📌 What are they?
+Kernels allow SVM to operate in high-dimensional space without explicitly transforming data. Popular kernels:
+
+- **Linear**: Good for linearly separable data.
+- **Polynomial**: Maps to a polynomial feature space.
+- **RBF (Gaussian)**: Handles complex, non-linear patterns.
+- **Sigmoid**: Similar to neural network activation functions.
+
+### 🐍 Kernel Comparison Code Snippet
+```python
+from sklearn.svm import SVC
+from sklearn.datasets import make_circles
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+X, y = make_circles(n_samples=1000, factor=0.5, noise=0.1)
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
+    model = SVC(kernel=kernel)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    print(f"Kernel: {kernel}, Accuracy: {accuracy_score(y_test, y_pred):.2f}")
+```
+
+---
+
+## 📏 Performance Metrics
+
+| Task Type     | Metrics                                  |
+|---------------|------------------------------------------|
+| Classification| Accuracy, Precision, Recall, F1, Confusion Matrix |
+| Regression    | R² Score, Mean Absolute Error (MAE), Mean Squared Error (MSE), Root MSE (RMSE) |
+| Both          | Hyperparameter tuning via GridSearchCV   |
+
+### 🔍 Tips:
+- Use `classification_report()` for SVC.
+- Use `r2_score()` and `mean_absolute_error()` for SVR.
+- Tune `C`, `gamma`, and `kernel` in `SVC/SVR` for best performance.
+
+---
+
+(Original content continues below...)
