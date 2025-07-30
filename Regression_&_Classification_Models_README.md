@@ -14,7 +14,10 @@ This repository contains explanations and Python implementations of several regr
 - [🤖 8. Support Vector Classifier (SVC)](#-8-support-vector-classifier-svc)
 - [🤖 9. Support Vector Regression (SVR)](#-9-support-vector-regression-svr)
 - [🧠 SVM Kernels](#-svm-kernels)
-
+- [🧠 10. Naive Bayes Classification](#-10-naive-bayes-classification)
+- [📉 11. Naive Bayes Regression](#-11-naive-bayes-regression)
+- [🧠 12. KNN Classification](#-12-knn-classification)
+- [📉 13. K-Nearest Neighbours Regression](#-13-k-nearest-neighbours-regression)
 ---
 
 
@@ -516,3 +519,177 @@ for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
 - Tune `C`, `gamma`, and `kernel` in `SVC/SVR` for best performance.
 
 ---
+
+## 🧠 10. Naive Bayes Classification
+
+Naive Bayes is highly effective for:
+- Spam Detection
+- Sentiment Analysis
+- Document Categorization
+
+### ✅ Popular Variants:
+- `GaussianNB`: Works with continuous features
+- `MultinomialNB`: Good for count features (e.g., word frequencies)
+- `BernoulliNB`: Suitable for binary/boolean features
+
+---
+
+### 📌 Sample Code: Naive Bayes Classification
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load dataset
+X, y = load_iris(return_X_y=True)
+
+# Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Train the model
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+# Predict
+y_pred = model.predict(X_test)
+
+# Evaluate
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+```
+## 📉 11. Naive Bayes Regression
+
+Naive Bayes is inherently a **classification algorithm**, not designed for predicting continuous outputs. However, **regression tasks can be approximated** using a **discretization-based approach**.
+
+---
+
+### 💡 Concept
+
+1. **Discretize the target variable** (continuous `y`) into bins (e.g., 5–20).
+2. Train a `Naive Bayes Classifier` to predict the bin label (classification task).
+3. **Inverse-transform** predicted bins to their original numeric range.
+4. Evaluate with regression metrics: `MSE`, `MAE`, `R²`.
+
+This method is **not ideal for precise regression**, but it can provide rough estimates when modeling time is crucial or when classification-style processing is needed.
+
+---
+
+### ⚙️ Step-by-Step Python Code
+
+```python
+import numpy as np
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import KBinsDiscretizer
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Step 1: Load dataset
+X, y = fetch_california_housing(return_X_y=True)
+
+# Step 2: Discretize the continuous target into 10 bins
+discretizer = KBinsDiscretizer(n_bins=10, encode='ordinal', strategy='quantile')
+y_binned = discretizer.fit_transform(y.reshape(-1, 1)).ravel()
+
+# Step 3: Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y_binned, test_size=0.2, random_state=42)
+
+# Step 4: Train Naive Bayes model
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+# Step 5: Predict the bins for test data
+y_pred_bins = model.predict(X_test)
+
+# Step 6: Inverse-transform the predicted bins to continuous values
+y_pred = discretizer.inverse_transform(y_pred_bins.reshape(-1, 1)).ravel()
+y_actual = discretizer.inverse_transform(y_test.reshape(-1, 1)).ravel()
+
+# Step 7: Evaluate using regression metrics
+mse = mean_squared_error(y_actual, y_pred)
+mae = mean_absolute_error(y_actual, y_pred)
+r2 = r2_score(y_actual, y_pred)
+
+print(f"Mean Squared Error (MSE): {mse:.3f}")
+print(f"Mean Absolute Error (MAE): {mae:.3f}")
+print(f"R² Score: {r2:.3f}")
+```
+---
+
+## 🧠 12. KNN Classification
+
+KNN classification assigns a class label to a data point based on the **majority class among its `k` nearest neighbors**.
+
+### ✅ Sample Code: KNN Classification
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load dataset
+X, y = load_iris(return_X_y=True)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Train KNN model
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(X_train, y_train)
+
+# Predict
+y_pred = model.predict(X_test)
+
+# Evaluate
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+```
+
+## 📉 13. K-Nearest Neighbours Regression
+
+KNN Regression is a **non-parametric, lazy learning** algorithm that predicts the target value of a data point by taking the **average (or weighted average)** of the `k` nearest training data points.
+
+### 🧠 How It Works
+
+1. Choose the number of neighbors `k`.
+2. Compute the distance (typically Euclidean) between the test point and all training points.
+3. Select the `k` closest points.
+4. Predict the value as the **mean** (or weighted mean) of these `k` points' target values.
+
+---
+
+### ✅ Sample Code: KNN Regression with Evaluation
+
+```python
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Step 1: Load dataset
+X, y = fetch_california_housing(return_X_y=True)
+
+# Step 2: Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 3: Train KNN Regressor
+model = KNeighborsRegressor(n_neighbors=5)  # Try different values of k
+model.fit(X_train, y_train)
+
+# Step 4: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 5: Evaluate performance
+mse = mean_squared_error(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error (MSE): {mse:.3f}")
+print(f"Mean Absolute Error (MAE): {mae:.3f}")
+print(f"R² Score: {r2:.3f}")
+```
