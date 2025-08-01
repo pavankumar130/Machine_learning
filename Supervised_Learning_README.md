@@ -1,7 +1,3 @@
-# 📘 Regression & Classification Models - README
-
-This repository contains explanations and Python implementations of several regression and classification models used in machine learning.
-
 ## 📚 Table of Contents
 
 - [📊 1. Linear Regression](#-1-linear-regression)
@@ -18,6 +14,10 @@ This repository contains explanations and Python implementations of several regr
 - [📉 11. Naive Bayes Regression](#-11-naive-bayes-regression)
 - [🧠 12. KNN Classification](#-12-knn-classification)
 - [📉 13. K-Nearest Neighbours Regression](#-13-k-nearest-neighbours-regression)
+- [🌲 14. Decision Tree Classifier](#-14-decision-tree-classifier)
+- [📉 15. Decision Tree Regressor](#-15-decision-tree-regressor)
+- [🌲 16. Decision Tree Classifier](#-16-random-forest-classifier)
+- [📉 17. Random Forest Regressor](#-17-random-forest-regressor)
 ---
 
 
@@ -693,3 +693,173 @@ print(f"Mean Squared Error (MSE): {mse:.3f}")
 print(f"Mean Absolute Error (MAE): {mae:.3f}")
 print(f"R² Score: {r2:.3f}")
 ```
+## 🌲 14. Decision Tree Classifier
+
+### ✅ Description
+A **Decision Tree Classifier** is used when the target variable is **categorical**. The model splits data into branches based on feature values and makes predictions using splitting criteria such as **Gini Impurity** or **Entropy (Information Gain)**.
+
+### 📌 Key Concepts
+- **Root Node**: The top node; represents the best feature to split on.
+- **Internal Nodes**: Decision nodes that split data.
+- **Leaf Nodes**: Final predictions (class labels).
+- **Splitting Criteria**:
+  - **Gini Index**
+  - **Entropy (Information Gain)**
+
+### 📘 Python Implementation
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load dataset
+data = load_iris()
+X = data.data
+y = data.target
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train classifier
+clf = DecisionTreeClassifier(criterion='gini', random_state=42)
+clf.fit(X_train, y_train)
+
+# Predictions
+y_pred = clf.predict(X_test)
+
+# Evaluation
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+---
+
+## 📉 15. Decision Tree Regressor
+
+### ✅ Description
+A **Decision Tree Regressor** is used when the target variable is **continuous**. The model splits the data into regions and predicts values by averaging the observations within each leaf.
+
+### 📌 Key Concepts
+- **Splitting Criteria**:
+  - **Mean Squared Error (MSE)**
+  - **Mean Absolute Error (MAE)**
+- **Prediction**: Mean value of observations in each region.
+
+### 📘 Python Implementation
+
+```python
+from sklearn.datasets import fetch_california_housing
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Load dataset
+data = fetch_california_housing()
+X = data.data
+y = data.target
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train regressor
+reg = DecisionTreeRegressor(criterion='squared_error', random_state=42)
+reg.fit(X_train, y_train)
+
+# Predictions
+y_pred = reg.predict(X_test)
+
+# Evaluation
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+print("Mean Absolute Error:", mean_absolute_error(y_test, y_pred))
+print("R2 Score:", r2_score(y_test, y_pred))
+```
+
+---
+## 🌳 16. Random Forest Classifier
+
+### ✅ Description
+A **Random Forest Classifier** is used when the target variable is **categorical**. It builds multiple decision trees using random subsets of features and samples, then aggregates the predictions using majority voting.
+
+### 📌 Key Concepts
+- **Ensemble of Trees**: Combines multiple decision trees.
+- **Bootstrap Aggregation (Bagging)**: Training on random samples with replacement.
+- **Feature Randomness**: Each tree considers a random subset of features.
+- **Out-of-Bag (OOB) Evaluation**: Unused samples help validate model accuracy without a separate validation set.
+
+### 📘 Python Implementation
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load dataset
+data = load_iris()
+X = data.data
+y = data.target
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Random Forest with OOB evaluation
+clf = RandomForestClassifier(n_estimators=100, oob_score=True, random_state=42)
+clf.fit(X_train, y_train)
+
+# Predictions
+y_pred = clf.predict(X_test)
+
+# Evaluation
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("OOB Score:", clf.oob_score_)
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+---
+
+## 📉 17. Random Forest Regressor
+
+### ✅ Description
+A **Random Forest Regressor** is used when the target variable is **continuous**. It predicts by averaging the results of individual trees, each trained on random samples and feature subsets.
+
+### 📌 Key Concepts
+- **Ensemble Averaging**: Predictions are averaged across all trees.
+- **Reduces Overfitting**: Compared to individual decision trees.
+- **OOB Evaluation**: An internal validation method using unused bootstrap samples.
+
+### 📘 Python Implementation
+
+```python
+from sklearn.datasets import fetch_california_housing
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Load dataset
+data = fetch_california_housing()
+X = data.data
+y = data.target
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Random Forest Regressor with OOB score
+reg = RandomForestRegressor(n_estimators=100, oob_score=True, bootstrap=True, random_state=42)
+reg.fit(X_train, y_train)
+
+# Predictions
+y_pred = reg.predict(X_test)
+
+# Evaluation
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+print("Mean Absolute Error:", mean_absolute_error(y_test, y_pred))
+print("R2 Score:", r2_score(y_test, y_pred))
+# Note: OOB score in regression is like R^2 on OOB samples
+print("OOB Score:", reg.oob_score_)
+```
+
+---
