@@ -18,6 +18,9 @@
 - [📉 15. Decision Tree Regressor](#-15-decision-tree-regressor)
 - [🌲 16. Decision Tree Classifier](#-16-random-forest-classifier)
 - [📉 17. Random Forest Regressor](#-17-random-forest-regressor)
+- [🔋 18. AdaBoost](#-18-adaBoost)
+- [🌄 19. Gradient Boosting](#-19-gradient-boosting)
+- [⚡ 20. XGBoost](#-20-xgboost)
 ---
 
 
@@ -860,6 +863,152 @@ print("Mean Absolute Error:", mean_absolute_error(y_test, y_pred))
 print("R2 Score:", r2_score(y_test, y_pred))
 # Note: OOB score in regression is like R^2 on OOB samples
 print("OOB Score:", reg.oob_score_)
+```
+
+---
+## 🔋 18. AdaBoost 
+
+### ✅ Description
+
+AdaBoost adjusts the weights of incorrectly predicted samples so that subsequent classifiers focus more on difficult cases.
+
+---
+
+### 🎯 AdaBoost Classification
+
+```python
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load data
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train AdaBoost Classifier
+clf = AdaBoostClassifier(n_estimators=50, random_state=42)
+clf.fit(X_train, y_train)
+
+# Evaluate
+y_pred = clf.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+---
+
+### 📈 AdaBoost Regression
+
+```python
+from sklearn.ensemble import AdaBoostRegressor
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Load data
+X, y = fetch_california_housing(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train AdaBoost Regressor
+reg = AdaBoostRegressor(n_estimators=50, random_state=42)
+reg.fit(X_train, y_train)
+
+# Evaluate
+y_pred = reg.predict(X_test)
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("R² Score:", r2_score(y_test, y_pred))
+```
+
+---
+
+## 🌄 19. Gradient Boosting
+
+### ✅ Description
+
+Gradient Boosting improves the model by minimizing the residual errors of previous models using gradient descent. Trees are added sequentially to correct prediction mistakes.
+
+- **Residuals**: Difference between predicted and actual values.
+- **Loss Function**: Mean squared error for regression, log loss for classification.
+
+---
+
+### 🎯 Gradient Boosting Classification
+
+```python
+from sklearn.ensemble import GradientBoostingClassifier
+
+clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, random_state=42)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+---
+
+### 📈 Gradient Boosting Regression
+
+```python
+from sklearn.ensemble import GradientBoostingRegressor
+
+reg = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, random_state=42)
+reg.fit(X_train, y_train)
+y_pred = reg.predict(X_test)
+
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("R² Score:", r2_score(y_test, y_pred))
+```
+
+---
+
+## ⚡ 20. XGBoost
+
+### ✅ Description
+
+XGBoost is an optimized implementation of Gradient Boosting with additional regularization and speed improvements.
+
+Key terms:
+
+- **Gain**: Improvement in accuracy from a feature split.
+- **Cover**: Number of samples affected.
+- **Similarity Score**: Measures how well a split separates data.
+
+Install: `pip install xgboost`
+
+---
+
+### 🎯 XGBoost Classification
+
+```python
+from xgboost import XGBClassifier
+
+clf = XGBClassifier(n_estimators=100, learning_rate=0.1, use_label_encoder=False, eval_metric='mlogloss')
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+---
+
+### 📈 XGBoost Regression
+
+```python
+from xgboost import XGBRegressor
+
+reg = XGBRegressor(n_estimators=100, learning_rate=0.1)
+reg.fit(X_train, y_train)
+y_pred = reg.predict(X_test)
+
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("R² Score:", r2_score(y_test, y_pred))
 ```
 
 ---
