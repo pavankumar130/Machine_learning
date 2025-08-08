@@ -211,9 +211,3 @@ print(f"Silhouette Score: {score:.3f}")
 | Anomaly Detection | Outlier detection | Rare patterns | Model-specific |
 
 ---
-
-## 📚 References
-
-- [scikit-learn Documentation](https://scikit-learn.org)
-- Bishop, C. M. *Pattern Recognition and Machine Learning*
-- Hastie, T., Tibshirani, R., Friedman, J. *The Elements of Statistical Learning*
